@@ -1,0 +1,52 @@
+{%extends 'base.html'%}
+{%block head%}
+
+{%endblock%}
+
+{%block content%}
+<html style="font-family: CookieRun Regular;">
+    <div>
+        <h3><header>BOOK-MARK</header></h3>
+        <br>
+        <div>
+            <button type="button" style="background-color: rgb(59, 173, 218); font-family: CookieRun Regular;"><a href="{%url 'main:new'%}">CREATE</a></button>
+        </div>
+    </div>
+
+<div>
+    {% if posts %}
+    {%for bookmark in posts%}
+    <div>
+        <p>{{bookmark.site_name}}</p>
+        <p>{{bookmark.site_url}}</p>
+        <div>
+            <button type="button" style="background-color: rgb(59, 173, 218); font-family: CookieRun Regular;"><a href="{%url 'main:edit' bookmark.id %}">edit</a></button>
+            <form action="{%url 'main:delete' bookmark.id %}" method="POST">
+                {%csrf_token %}
+                <input type="submit" style="color: white; background-color: rgb(59, 173, 218); font-family: CookieRun Regular;" value="delete">
+            </form>
+        </div>
+        <br>
+    </div>
+    {%endfor%}
+    {% if posts.has_previous %}
+    <a href="?page={{posts.previous_page_number}}">이전</a>
+    {% endif %}
+    <span>{{posts.number}}</span>
+    <span>/</span>
+    <span>{{posts.paginator.num_pages}}</span>
+    {% if posts.has_next %}
+    <a href="?page={{posts.next_page_number}}">다음</a>
+    {% endif%}
+    {% else %}
+    <div>
+        <p>
+            북마크가 비어있어요.
+            <br>
+            CREATE가 필요해요.
+        </p>
+    </div>
+    {%endif%}
+</div>
+</html>
+{%endblock%}

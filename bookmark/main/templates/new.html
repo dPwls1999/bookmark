@@ -1,0 +1,24 @@
+{%extends 'base.html'%}
+{%block head%}
+
+{%endblock%}
+
+{%block content%}
+<html style="font-family: CookieRun Regular;">
+<div>
+    <header>BOOKMARK</header>
+    <br>
+    <div>
+        <button style="background-color: rgb(59, 173, 218); font-family: CookieRun Regular;"><a href="{%url 'main:show' %}">HOME</a></button>
+    </div>
+</div>
+
+<div>
+    <form action="POST" enctype="multipart/form-data">
+        {%csrf_token%}
+        {{form.as_p}}
+        <input type="submit" style="color: white; background-color: rgb(59, 173, 218); font-family: CookieRun Regular;" value="추가">
+    </form>
+</div>
+</html>
+{%endblock%}
